@@ -7,6 +7,7 @@ import com.doyeong.oauthback.Repository.UserRepository;
 import com.doyeong.oauthback.dto.request.auth.SignUpRequestDto;
 import com.doyeong.oauthback.dto.response.ResponseDto;
 import com.doyeong.oauthback.dto.response.auth.SignUpResponseDto;
+import com.doyeong.oauthback.entity.UserEntity;
 import com.doyeong.oauthback.service.AuthService;
 
 import lombok.RequiredArgsConstructor;
@@ -20,14 +21,15 @@ public class AuthServiceImplement implements AuthService {
   @Override
   public ResponseEntity<? super SignUpResponseDto> signUp(SignUpRequestDto dto) {
     
-    SignUpResponseDto result = null;
-    
     String id = dto.getId();
     
     try {
       
       boolean hasId = userRepository.existsById(id);
       if (hasId) return SignUpResponseDto.existedId();
+
+      UserEntity userEntity = new UserEntity(dto);
+      userRepository.save(userEntity);
       
     } catch (Exception exception) {
       exception.printStackTrace();

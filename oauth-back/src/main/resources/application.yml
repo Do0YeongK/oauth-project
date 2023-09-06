@@ -7,3 +7,17 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/oauth?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
     password: root
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: 309cd690b5004b3ea126
+            clientSecret: c3554c17db9617aec2cbdb399b9fe9c2fe3c9d46
+            redirectUri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - user:email
+              - read:user
+    provider:
+      github:
+        authorization-uri: https://github.com/login/oauth/authorize
