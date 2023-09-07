@@ -32,7 +32,9 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     String id = oAuth2User.getName();
     String token = jwtProvider.create(id);
 
-    response.getWriter().write(token);
+    // response.getWriter().write(token);
+    response.sendRedirect("http://localhost:3000/oauth2/" + token);   //sendRedirect : get 요청만 할 수 있음
+
   }
 
 

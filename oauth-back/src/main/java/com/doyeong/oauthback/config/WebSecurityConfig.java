@@ -31,10 +31,11 @@ public class WebSecurityConfig {
       .httpBasic().disable()
       .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
       .authorizeRequests()
-      .antMatchers("/", "/auth/**", "/oauth2/**").permitAll()
+      .antMatchers("/", "/api/v1/auth/**", "/oauth2/**").permitAll()
       .anyRequest().authenticated().and()
       .oauth2Login()
-      .redirectionEndpoint().baseUri("/oauth2/callback/*").and()  // * : 에스터레스크
+      .redirectionEndpoint().baseUri("/oauth2/callback/*").and()  
+      .authorizationEndpoint().baseUri("/api/v1/auth/social").and() // authorizationEndpoint : 지정한 url로 들어가지도록
       .userInfoEndpoint().userService(oAuth2UserService).and()
       .successHandler(oAuth2SuccessHandler); 
 
