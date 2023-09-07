@@ -36,15 +36,12 @@ public class OAuth2UserServiceImplement extends DefaultOAuth2UserService {
     String profileImage = (String) oAuth2User.getAttributes().get("avatar_url"); // Object -> String 다운캐스팅
 
     boolean existedId = userRepository.existsById(id);
-    // if (!existedId) {
-    //   UserEntity userEntity = new UserEntity(id, profileImage);
-    //   userRepository.save(userEntity);
-    // }
+    if (!existedId) {
+      UserEntity userEntity = new UserEntity(id, profileImage);
+      userRepository.save(userEntity);
+    }
 
-    if (!existedId) return new ApplicationOAuth2User(id, false, oAuth2User.getAttributes());
-    
-
-    return new ApplicationOAuth2User(id, true, oAuth2User.getAttributes());
+    return new ApplicationOAuth2User(id, oAuth2User.getAttributes());
 
   }
   

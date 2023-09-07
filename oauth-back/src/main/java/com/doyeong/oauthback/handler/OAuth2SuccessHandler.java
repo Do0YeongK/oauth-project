@@ -29,8 +29,6 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     // 로그인 결과(token) 만들 것
     ApplicationOAuth2User oAuth2User = (ApplicationOAuth2User) authentication.getPrincipal();
-    boolean isSignUp = oAuth2User.isSignUp();
-    if (!isSignUp) response.sendRedirect("http://localhost:3000/oauth2/signup/");
     String id = oAuth2User.getName();
     String token = jwtProvider.create(id);
 
